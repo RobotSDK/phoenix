@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="." name="Phoenix" default="package">
+
+	<target name="setup">
+
+		<property name="src.dir" location="src" />
+		<property name="lib.dir" location="lib" />
+		<property name="bin.dir" location="bin" />
+		<property name="jar.dir" location="jar" />
+		<property name="doc.dir" location="doc" />
+
+		<mkdir dir="${src.dir}" />
+		<mkdir dir="${lib.dir}" />
+		<mkdir dir="${bin.dir}" />
+		<mkdir dir="${jar.dir}" />
+		<mkdir dir="${doc.dir}" />
+
+		<path id="classpath">
+
+			<fileset dir="${lib.dir}" />
+
+		</path>
+
+	</target>
+
+	<target depends="setup" name="compile">
+
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" classpathref="classpath" includeAntRuntime="false" />
+
+	</target>
+	
+	<target depends="compile" name="package">
+
+		<jar basedir="${bin.dir}" destfile="${jar.dir}/phoenix-1.0.0-rc.jar" />
+
+	</target>
+
+	<target depends="setup" name="javadoc">
+
+		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}" classpathref="classpath" />
+
+	</target>
+	
+	<target depends="setup" name="clean">
+
+		<delete dir="${bin.dir}" />        
+		<delete dir="${jar.dir}" />
+		<delete dir="${doc.dir}" />
+
+	</target>
+
+</project>
